@@ -39,18 +39,20 @@
 	<%
 	    if (expTree != null) {
 	        out.println("<div class='container'>");
-	        printTree(expTree, out);
+	        printTree(expTree,out);
+	        id = 0;
 	        out.println("</div>");
 	    }
 	%>
 	
 	<%! 
+		int id = 0;
 	    void printTree(Node<String> node, JspWriter out) throws IOException {
 	        if (node != null) {
 	            out.println("<div class='row'>");
-	            out.println("<span class='node'>" + node.root + "</span>");
+	            out.println("<span class='node' style='--i:"+id++ +"'>" + node.root + "</span>");
 	            printTree(node.left, out);
-	            printTree(node.right, out);
+	            printTree(node.right,out);
 	            out.println("</div>");
 	        }
 	    }

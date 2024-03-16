@@ -38,7 +38,6 @@ body
 	justify-content: center;
 	align-items: center;
 	transform: scale(1.25);
-	transition: 1s;
 }
 form, form > div
 {
@@ -105,8 +104,31 @@ input[type="text"]
 	border: 1px solid rgba(0,0,0,0.2);
 	border-radius: 50%;
 	margin: auto auto;
-	transition: 1s;
 	box-shadow: inset -5px -5px 10px 0px rgba(0,0,0,0.2);
+	opacity: 0;
+	animation: pop 0.5s ease-in-out forwards;
+	animation-delay: calc(var(--i)*0.5s);
+}
+@keyframes pop
+{
+	from
+	{
+		opacity: 0;
+		width: 0rem;
+		height: 0rem;
+	}
+	25%
+	{
+		opacity: 0.5;
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+	to
+	{
+		opacity: 1;
+		width: 3rem;
+		height: 3rem;
+	}
 }
 .node::before
 {
@@ -117,7 +139,6 @@ input[type="text"]
 	left: 50%;
 	top: 0;
 	transform: translateY(-100%);
-	transition: 1s;
 	background: linear-gradient(to bottom right, #0000 49%,rgba(0,0,0,0.2) 0 51%,#0000 0);
 }
 .row:nth-child(3) > span::before{
