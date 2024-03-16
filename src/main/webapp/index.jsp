@@ -20,7 +20,7 @@
 	<h1>Expression Tree Generator</h1>
 	<form action="generate">
 		<div>
-			<input type="text" name="expression">
+			<input type="text" name="expression" placeholder="eg. 1*2+3*4">
 			<input type="submit" value="Generate">
 		</div>
 		<div class="result">
