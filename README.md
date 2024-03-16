@@ -38,11 +38,3 @@ This web application generates and displays expression trees based on user input
 1. Clone this repository to your local machine.
 2. Deploy the web application to a Java servlet container such as Apache Tomcat.
 3. Access the application in your web browser using the appropriate URL.
-
-## Author
-
-[Your Name]
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
