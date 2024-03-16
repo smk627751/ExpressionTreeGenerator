@@ -15,6 +15,7 @@
 		String expression = (String)request.getAttribute("expression");
 		Double result = (Double)request.getAttribute("result");
 		Node<String> expTree = (Node<String>)request.getAttribute("expTree");
+		String err = (String)request.getAttribute("error");
 	%>
 	<h1>Expression Tree Generator</h1>
 	<form action="generate">
@@ -22,11 +23,15 @@
 			<input type="text" name="expression">
 			<input type="submit" value="Generate">
 		</div>
-		<div>
+		<div class="result">
 		<%
 			if(result != null)
 			{
 				out.println("<span>"+expression+"</span>=<span>"+result+"</span>");
+			}
+			if(err != null)
+			{
+				out.println("<span class='err'>"+err+"</span>");
 			}
 		%>
 		</div>

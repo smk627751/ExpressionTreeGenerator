@@ -6,6 +6,12 @@
 	box-sizing: border-box;
 	font-family: sans-serif;
 }
+h1
+{
+	text-transform: uppercase;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 100;
+}
 body
 {
 	display: grid;
@@ -15,20 +21,22 @@ body
 	height: 100vh;
 	place-items: center;
 	overflow: hidden;
-	background-color: #022830;
+	background-color: #fff;
 }
-h1
+.result > span
 {
-	color: #fff;
+	font-size: 1.5rem;
+	font-family: monospace;
 }
 .container
 {
-	width: fit-content;
+	width: 100vw;
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	transform: scale(1.25);
+	transition: 1s;
 }
 form, form > div
 {
@@ -38,11 +46,14 @@ form, form > div
 	width: 100%;
 	gap: 10px;
 	z-index: 2;
-	color: #fff;
 }
 form
 {
 	flex-direction: column;
+}
+.err
+{
+	color: red;
 }
 input
 {
@@ -56,12 +67,16 @@ input
 input[type="submit"]
 {
 	color: #fff;
-	background-color: #033f4d;
+	width: 120px;
+	background-color: #5b18a8;
 	cursor: pointer;
+	border-radius: 50px;
 }
 input[type="text"]
 {
 	width: 30%;
+	background: transparent;
+	border: 1px solid rgba(0,0,0,0.2);
 }
 .row
 {
@@ -79,21 +94,14 @@ input[type="text"]
 	place-items: center;
 	width: 3rem;
 	height: 3rem;
-	font-size: 1.25rem;
-	background-color: #cdcdcd;
+	font-size: 1.05rem;
+	font-family: monospace;
+	color: #000;
+	border: 1px solid rgba(0,0,0,0.2);
 	border-radius: 50%;
 	margin: auto auto;
 	transition: 1s;
-}
-@keyframes show {
-    from {
-        opacity: 0;
-        transform: scale(0);
-    }
-    to {
-        opacity: 1; /* Changed opacity value */
-        transform: scale(1);
-    }
+	box-shadow: inset -5px -5px 10px 0px rgba(0,0,0,0.2);
 }
 .node::before
 {
@@ -105,12 +113,12 @@ input[type="text"]
 	top: 0;
 	transform: translateY(-100%);
 	transition: 1s;
-	background: linear-gradient(to bottom right, #0000 49%,#fff 0 51%,#0000 0);
+	background: linear-gradient(to bottom right, #0000 49%,rgba(0,0,0,0.2) 0 51%,#0000 0);
 }
 .row:nth-child(3) > span::before{
 	left: auto;
 	right: 50%;
-	background: linear-gradient(to bottom left, #0000 49%,#fff 0 51%,#0000 0);
+	background: linear-gradient(to bottom left, #0000 49%,rgba(0,0,0,0.2) 0 51%,#0000 0);
 }
 .container > div > span::before
 {

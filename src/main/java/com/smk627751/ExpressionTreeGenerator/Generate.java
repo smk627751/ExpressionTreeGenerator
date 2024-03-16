@@ -17,7 +17,14 @@ public class Generate extends HttpServlet {
         {
         	ExpressionTreeGenerator obj = new ExpressionTreeGenerator();
             Node<String> expTree = obj.generate(expression.replace(" ",""));
-            double result = obj.inorder(expTree);
+            double result = 0;
+			try {
+				result = obj.inorder(expTree);
+			} catch (Exception e) {
+				request.setAttribute("error", "Invalid expression");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+				return;
+			}
             request.setAttribute("expression", expression);
             request.setAttribute("expTree", expTree);
             request.setAttribute("result",result);

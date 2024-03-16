@@ -37,7 +37,11 @@ public class ExpressionTreeGenerator {
     {
         if(exp.left == null && exp.right == null)
         {
-            return Double.parseDouble(exp.root);
+            try {
+				return Double.parseDouble(exp.root);
+			} catch (NumberFormatException e) {
+				throw new RuntimeException();
+			}
         }
         double result = 0;
         switch (exp.root)
