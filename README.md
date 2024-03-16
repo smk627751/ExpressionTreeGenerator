@@ -2,7 +2,7 @@
 
 This web application generates and displays expression trees based on user input. It utilizes JavaServer Pages (JSP) for server-side processing.
 ## Output
-![image](output.png)
+![image](output.gif)
 ## Features
 
 - **Input Form**: Users can input an expression in the provided text field and submit it.
