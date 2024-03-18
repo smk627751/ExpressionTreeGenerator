@@ -1,39 +1,85 @@
 package com.smk627751.ExpressionTreeGenerator;
 
+import java.util.Stack;
+
 public class ExpressionTreeGenerator {
-    private String getLowOperator(String exp)
+	private int getPrecedence(char c)
     {
-        if(exp.contains("+") || exp.contains("-"))
+        return switch (c) {
+            case '+', '-' -> 1;
+            case '*', '/' -> 2;
+            default -> 0;
+        };
+    }
+    private boolean isOperand(char c)
+    {
+        return Character.isDigit(c);
+    }
+    String infixToPostfix(String exp)
+    {
+        StringBuilder postfix = new StringBuilder();
+        Stack<Character> stack = new Stack<>();
+        for(int i = 0; i < exp.length(); i++)
         {
-            return "+-";
+            char c = exp.charAt(i);
+            if(isOperand(c))
+            {
+                while(i < exp.length() && isOperand(exp.charAt(i)))
+                {
+                    postfix.append(exp.charAt(i++));
+                }
+                postfix.append(' ');
+                i--;
+            }
+            else if(c == '(')
+            {
+                stack.push(c);
+            }
+            else if(c == ')')
+            {
+                while(!stack.isEmpty() && stack.peek() != '(')
+                {
+                    postfix.append(stack.pop()).append(' ');
+                }
+                stack.pop();
+            }
+            else
+            {
+                while(!stack.isEmpty() && getPrecedence(c) <= getPrecedence(stack.peek()))
+                {
+                    postfix.append(stack.pop()).append(' ');
+                }
+                stack.push(c);
+            }
         }
-        else if(exp.contains("*") || exp.contains("/"))
-        {
-            return "*/";
+        while (!stack.isEmpty()) {
+            postfix.append(stack.pop()).append(' ');
         }
-        return null;
+        return postfix.toString().trim();
     }
     Node<String> generate(String exp)
     {
-        String operator = getLowOperator(exp);
-        if(operator == null)
+    	Stack<Node<String>> stack = new Stack<>();
+        String operators = "+-*/";
+        for(String s : exp.split(" "))
         {
-            return new Node<>(exp);
-        }
-        int index = 0;
-        for(int i = 0; i < exp.length(); i++)
-        {
-            if(operator.contains(exp.charAt(i) + ""))
+            if(!operators.contains(s))
             {
-                index = i;
+                stack.push(new Node<>(s));
+            }
+            else
+            {
+                Node<String> right = !stack.isEmpty() ? stack.pop() : null;
+                Node<String> left = !stack.isEmpty() ? stack.pop() : null;
+                Node<String> root = new Node<>(s);
+                root.left = left;
+                root.right = right;
+                stack.push(root);
             }
         }
-        Node<String> expTree = new Node<>(String.valueOf(exp.charAt(index)));
-        expTree.left = generate(exp.substring(0,index));
-        expTree.right = generate(exp.substring(index + 1));
-        return expTree;
+        return stack.pop();
     }
-    double inorder(Node<String> exp)
+    double evaluate(Node<String> exp)
     {
         if(exp.left == null && exp.right == null)
         {
@@ -47,16 +93,16 @@ public class ExpressionTreeGenerator {
         switch (exp.root)
         {
             case "+" ->{
-                result = inorder(exp.left) + inorder(exp.right);
+                result = evaluate(exp.left) + evaluate(exp.right);
             }
             case "-" ->{
-                result = inorder(exp.left) - inorder(exp.right);
+                result = evaluate(exp.left) - evaluate(exp.right);
             }
             case "*" ->{
-                result = inorder(exp.left) * inorder(exp.right);
+                result = evaluate(exp.left) * evaluate(exp.right);
             }
             case "/" ->{
-                result = inorder(exp.left) / inorder(exp.right);
+                result = evaluate(exp.left) / evaluate(exp.right);
             }
         }
         return result;

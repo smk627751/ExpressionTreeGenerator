@@ -16,10 +16,10 @@ public class Generate extends HttpServlet {
         if(expression != null && !expression.isEmpty())
         {
         	ExpressionTreeGenerator obj = new ExpressionTreeGenerator();
-            Node<String> expTree = obj.generate(expression.replace(" ",""));
+            Node<String> expTree = obj.generate(obj.infixToPostfix(expression.replace(" ","")));
             double result = 0;
 			try {
-				result = obj.inorder(expTree);
+				result = obj.evaluate(expTree);
 			} catch (Exception e) {
 				request.setAttribute("error", "Invalid expression");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
