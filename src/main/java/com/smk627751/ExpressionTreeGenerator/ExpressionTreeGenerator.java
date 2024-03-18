@@ -1,5 +1,6 @@
 package com.smk627751.ExpressionTreeGenerator;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class ExpressionTreeGenerator {
@@ -41,7 +42,10 @@ public class ExpressionTreeGenerator {
                 {
                     postfix.append(stack.pop()).append(' ');
                 }
-                stack.pop();
+                if(!stack.isEmpty())
+                {
+                	stack.pop();
+                }
             }
             else
             {
