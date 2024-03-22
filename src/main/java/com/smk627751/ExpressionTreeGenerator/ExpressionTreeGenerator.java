@@ -1,6 +1,5 @@
 package com.smk627751.ExpressionTreeGenerator;
 
-import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class ExpressionTreeGenerator {
@@ -73,8 +72,8 @@ public class ExpressionTreeGenerator {
             }
             else
             {
-                Node<String> right = !stack.isEmpty() ? stack.pop() : null;
-                Node<String> left = !stack.isEmpty() ? stack.pop() : null;
+                Node<String> right = stack.pop();
+                Node<String> left = stack.pop();
                 Node<String> root = new Node<>(s);
                 root.left = left;
                 root.right = right;
@@ -83,32 +82,37 @@ public class ExpressionTreeGenerator {
         }
         return stack.pop();
     }
-    double evaluate(Node<String> exp)
+    double evaluate(String exp)
     {
-        if(exp.left == null && exp.right == null)
+    	Stack<Double> stack = new Stack<>();
+        String operators = "+-*/";
+        for(String s : exp.split(" "))
         {
-            try {
-				return Double.parseDouble(exp.root);
-			} catch (NumberFormatException e) {
-				throw new RuntimeException();
-			}
+           if(!operators.contains(s))
+           {
+        	   stack.push(Double.parseDouble(s));
+           }
+           else
+           {
+        	   Double right = stack.pop();
+        	   Double left = stack.pop();
+        	   switch(s)
+        	   {
+	        	   case "+" ->{
+	        		   stack.push(left + right);
+	        	   }
+	        	   case "-" ->{
+	        		   stack.push(left - right);
+	        	   }
+	        	   case "*" ->{
+	        		   stack.push(left * right);
+	        	   }
+	        	   case "/" ->{
+	        		   stack.push(left / right);
+	        	   }
+        	   }
+           }
         }
-        double result = 0;
-        switch (exp.root)
-        {
-            case "+" ->{
-                result = evaluate(exp.left) + evaluate(exp.right);
-            }
-            case "-" ->{
-                result = evaluate(exp.left) - evaluate(exp.right);
-            }
-            case "*" ->{
-                result = evaluate(exp.left) * evaluate(exp.right);
-            }
-            case "/" ->{
-                result = evaluate(exp.left) / evaluate(exp.right);
-            }
-        }
-        return result;
+        return stack.pop();
     }
 }

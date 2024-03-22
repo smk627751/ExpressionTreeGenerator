@@ -16,10 +16,11 @@ public class Generate extends HttpServlet {
         if(expression != null && !expression.isEmpty() && !expression.contains("[a-z,A-Z]"))
         {
         	ExpressionTreeGenerator obj = new ExpressionTreeGenerator();
-            Node<String> expTree = obj.generate(obj.infixToPostfix(expression.replace(" ","")));
+        	String postFix = obj.infixToPostfix(expression.replace(" ",""));
+            Node<String> expTree = obj.generate(postFix);
             double result = 0;
 			try {
-				result = obj.evaluate(expTree);
+				result = obj.evaluate(postFix);
 			} catch (Exception e) {
 				request.setAttribute("error", "Invalid expression");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
