@@ -19,7 +19,7 @@
 		String err = (String)request.getAttribute("error");
 	%>
 	<h1>Expression Tree Generator</h1>
-	<form action="generate">
+	<form action=<%= request.getContextPath()+"/generate"%>>
 		<div>
 			<input type="text" name="expression" placeholder="eg. 1*2+3*4">
 			<input type="submit" value="Generate">
